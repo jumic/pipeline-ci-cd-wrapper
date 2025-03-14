@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { PipelineBlueprint } from '@cdklabs/cdk-cicd-wrapper';
+import { PipelineCiCdWrapperStack } from '../lib/pipeline-ci-cd-wrapper-stack';
 
 const app = new cdk.App();
 
@@ -9,4 +10,9 @@ const app = new cdk.App();
  * Attention: Any stage not included in the defineStages() function will be excluded from the pipeline.
  * This is done for safety reasons, to not export accidentally `PROD` env vars and have it deployed into the wrong account.
  */
-PipelineBlueprint.builder().synth(app);
+PipelineBlueprint.builder().addStack({
+    provide: (context) => {
+       // Create your stacks here
+       new PipelineCiCdWrapperStack(context.scope, `${context.blueprintProps.applicationName}PipelineCiCdWrapperStack`);
+
+    }}).synth(app);
