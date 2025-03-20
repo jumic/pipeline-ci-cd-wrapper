@@ -10,7 +10,7 @@ const app = new cdk.App();
  * Attention: Any stage not included in the defineStages() function will be excluded from the pipeline.
  * This is done for safety reasons, to not export accidentally `PROD` env vars and have it deployed into the wrong account.
  */
-PipelineBlueprint.builder().defineStages([Stage.DEV, Stage.INT, Stage.PROD]).addStack({
+PipelineBlueprint.builder().defineStages([Stage.RES, Stage.DEV, Stage.INT, Stage.PROD]).addStack({
     provide: (context) => {
         // Create your stacks here
         new PipelineCiCdWrapperStack(context.scope, `${context.blueprintProps.applicationName}PipelineCiCdWrapperStack`);
